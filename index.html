@@ -4,14 +4,16 @@
 <meta charset="UTF-8">
 <title>Youth Climate Leaders Globe</title>
 <style>
-  body { margin:0; display:flex; font-family:Arial; height:100vh; }
+  body { margin:0; display:flex; font-family:Arial, sans-serif; height:100vh; }
   #globe { flex:2; background:#000; }
   #info { flex:1; padding:20px; background:#f5f5f5; overflow-y:auto; }
   #info h2 { margin-top:0; }
 </style>
 </head>
 <body>
+
 <div id="globe"></div>
+
 <div id="info">
   <h2>Click a hotspot to see info</h2>
   <div id="infoText">The info will appear here.</div>
@@ -21,53 +23,54 @@
 <script src="https://unpkg.com/globe.gl"></script>
 
 <script>
-// CLEAN DATA WITH NORMAL QUOTES
+// CLEAN DATA – NO CURLY QUOTES
 const hotspots = [
-  { lat:-14.2, lng:-51.9, name:"Txai Surui", 
+  { lat:-14.2, lng:-51.9, name:"Txai Surui",
     text:["Defends the Amazon rainforest","Indigenous youth leader & COP26 speaker"],
     flag:"https://flagcdn.com/w40/br.png" },
 
-  { lat:1.37, lng:32.29, name:"Nyombi Morris", 
+  { lat:1.37, lng:32.29, name:"Nyombi Morris",
     text:["Planted 47,500+ trees","Founder of Earth Volunteers"],
     flag:"https://flagcdn.com/w40/ug.png" },
 
-  { lat:50, lng:-85, name:"Autumn Peltier", 
+  { lat:50, lng:-85, name:"Autumn Peltier",
     text:["Protects clean water for Indigenous communities","UN water-rights advocate"],
     flag:"https://flagcdn.com/w40/ca.png" },
 
-  { lat:-19, lng:30, name:"Nkosilathi Nyathi", 
+  { lat:-19, lng:30, name:"Nkosilathi Nyathi",
     text:["Youth climate activist since age 10","Represents youth at global forums"],
     flag:"https://flagcdn.com/w40/zw.png" },
 
-  { lat:-13.8, lng:-172, name:"Brianna Fruean", 
+  { lat:-13.8, lng:-172, name:"Brianna Fruean",
     text:["Pacific climate leader","Leads 350 Samoa & Future Rush"],
     flag:"https://flagcdn.com/w40/ws.png" },
 
-  { lat:21, lng:78, name:"Licypriya Kangujam", 
+  { lat:21, lng:78, name:"Licypriya Kangujam",
     text:["Young climate activist","Challenges world leaders on pollution & climate"],
     flag:"https://flagcdn.com/w40/in.png" },
 
-  { lat:1.37, lng:32.29, name:"Vanessa Nakate", 
+  { lat:1.37, lng:32.29, name:"Vanessa Nakate",
     text:["Amplifies African youth voices","Founder of Rise Up Climate Movement"],
     flag:"https://flagcdn.com/w40/ug.png" },
 
-  { lat:34.05, lng:-118.25, name:"Xiuhtezcatl Martinez", 
+  { lat:34.05, lng:-118.25, name:"Xiuhtezcatl Martinez",
     text:["Indigenous activist & hip-hop artist","Mobilizes youth through Earth Guardians"],
     flag:"https://flagcdn.com/w40/us.png" },
 
-  { lat:-8.4, lng:115.1, name:"Melati Wijsen", 
+  { lat:-8.4, lng:115.1, name:"Melati Wijsen",
     text:["Fights plastic pollution in Bali","Co-founder of Bye Bye Plastic Bags"],
     flag:"https://flagcdn.com/w40/id.png" },
 
-  { lat:-8.4, lng:115.1, name:"Isabel Wijsen", 
+  { lat:-8.4, lng:115.1, name:"Isabel Wijsen",
     text:["Youth climate leader","Co-founder of Bye Bye Plastic Bags"],
     flag:"https://flagcdn.com/w40/id.png" }
 ];
 
 const infoText = document.getElementById("infoText");
 
+// CREATE THE GLOBE
 const globe = Globe()
-  .globeImageUrl("//unpkg.com/three-globe/example/img/earth-day.jpg")
+  .globeImageUrl("https://unpkg.com/three-globe/example/img/earth-day.jpg")
   .pointsData(hotspots)
   .pointLat(d => d.lat)
   .pointLng(d => d.lng)
@@ -75,12 +78,20 @@ const globe = Globe()
   .pointAltitude(0.03)
   .pointRadius(0.5)
   .onPointClick(d => {
-    infoText.innerHTML = 
+    // UPDATE INFO PANEL
+    infoText.innerHTML =
       "<img src='" + d.flag + "' width='40'> " +
       "<strong>" + d.name + "</strong><br>" +
       d.text.join("<br>");
   })
 (document.getElementById("globe"));
+
+// OPTIONAL: SLOW AUTO ROTATION
+(function rotate(){
+  globe.controls().rotateLeft(0.001);
+  requestAnimationFrame(rotate);
+})();
 </script>
+
 </body>
 </html>
