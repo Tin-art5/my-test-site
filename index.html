@@ -62,16 +62,16 @@
 <script>
 // Hotspots with flag and description
 const hotspots = [
-  { lat: -14.2, lng: -51.9, name: "Txai Suruí", text: "Defends the Amazon rainforest<br>Indigenous youth leader & COP26 speaker", flag: "https://flagcdn.com/w40/br.png" },
-  { lat: 1.37, lng: 32.29, name: "Nyombi Morris", text: "Planted 47,500+ trees<br>Founder of Earth Volunteers", flag: "https://flagcdn.com/w40/ug.png" },
-  { lat: 50, lng: -85, name: "Autumn Peltier", text: "Protects clean water for Indigenous communities<br>UN water-rights advocate", flag: "https://flagcdn.com/w40/ca.png" },
-  { lat: -19, lng: 30, name: "Nkosilathi Nyathi", text: "Youth climate activist since age 10<br>Represents youth at global forums", flag: "https://flagcdn.com/w40/zw.png" },
-  { lat: -13.8, lng: -172, name: "Brianna Fruean", text: "Pacific climate leader<br>Leads 350 Samoa & Future Rush", flag: "https://flagcdn.com/w40/ws.png" },
-  { lat: 21, lng: 78, name: "Licypriya Kangujam", text: "Young climate activist<br>Challenges world leaders on pollution & climate", flag: "https://flagcdn.com/w40/in.png" },
-  { lat: 1.37, lng: 32.29, name: "Vanessa Nakate", text: "Amplifies African youth voices<br>Founder of Rise Up Climate Movement", flag: "https://flagcdn.com/w40/ug.png" },
-  { lat: 34.05, lng: -118.25, name: "Xiuhtezcatl Martinez", text: "Indigenous activist & hip-hop artist<br>Mobilizes youth through Earth Guardians", flag: "https://flagcdn.com/w40/us.png" },
-  { lat: -8.4, lng: 115.1, name: "Melati Wijsen", text: "Fights plastic pollution in Bali<br>Co-founder of Bye Bye Plastic Bags", flag: "https://flagcdn.com/w40/id.png" },
-  { lat: -8.4, lng: 115.1, name: "Isabel Wijsen", text: "Youth climate leader<br>Co-founder of Bye Bye Plastic Bags", flag: "https://flagcdn.com/w40/id.png" }
+  { lat: -14.2, lng: -51.9, name: "Txai Suruí", text: ["Defends the Amazon rainforest","Indigenous youth leader & COP26 speaker"], flag: "https://flagcdn.com/w40/br.png" },
+  { lat: 1.37, lng: 32.29, name: "Nyombi Morris", text: ["Planted 47,500+ trees","Founder of Earth Volunteers"], flag: "https://flagcdn.com/w40/ug.png" },
+  { lat: 50, lng: -85, name: "Autumn Peltier", text: ["Protects clean water for Indigenous communities","UN water-rights advocate"], flag: "https://flagcdn.com/w40/ca.png" },
+  { lat: -19, lng: 30, name: "Nkosilathi Nyathi", text: ["Youth climate activist since age 10","Represents youth at global forums"], flag: "https://flagcdn.com/w40/zw.png" },
+  { lat: -13.8, lng: -172, name: "Brianna Fruean", text: ["Pacific climate leader","Leads 350 Samoa & Future Rush"], flag: "https://flagcdn.com/w40/ws.png" },
+  { lat: 21, lng: 78, name: "Licypriya Kangujam", text: ["Young climate activist","Challenges world leaders on pollution & climate"], flag: "https://flagcdn.com/w40/in.png" },
+  { lat: 1.37, lng: 32.29, name: "Vanessa Nakate", text: ["Amplifies African youth voices","Founder of Rise Up Climate Movement"], flag: "https://flagcdn.com/w40/ug.png" },
+  { lat: 34.05, lng: -118.25, name: "Xiuhtezcatl Martinez", text: ["Indigenous activist & hip-hop artist","Mobilizes youth through Earth Guardians"], flag: "https://flagcdn.com/w40/us.png" },
+  { lat: -8.4, lng: 115.1, name: "Melati Wijsen", text: ["Fights plastic pollution in Bali","Co-founder of Bye Bye Plastic Bags"], flag: "https://flagcdn.com/w40/id.png" },
+  { lat: -8.4, lng: 115.1, name: "Isabel Wijsen", text: ["Youth climate leader","Co-founder of Bye Bye Plastic Bags"], flag: "https://flagcdn.com/w40/id.png" }
 ];
 
 const infoText = document.getElementById('infoText');
@@ -85,13 +85,14 @@ const myGlobe = Globe()
   .pointAltitude(0.03)
   .pointRadius(0.5)
   .onPointClick(d => {
-    // Update the info panel HTML correctly
+    // Build HTML from text array to avoid <br> escaping issues
+    const lines = d.text.map(line => `<div>${line}</div>`).join("");
     infoText.innerHTML = `
       <div class="leader-info">
         <img class="flag" src="${d.flag}" alt="flag">
         <div class="leader-text">
           <strong>${d.name}</strong>
-          ${d.text}
+          ${lines}
         </div>
       </div>
     `;
