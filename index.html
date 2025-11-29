@@ -2,68 +2,134 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Youth Changemakers Globe</title>
-<script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
-<script src="https://unpkg.com/globe.gl"></script>
+<title>Youth Changemakers Hotspots</title>
 <style>
-  body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; }
-  #globeViz { width: 100vw; height: 100vh; }
-  .globe-tooltip {
-    position: absolute;
-    background: rgba(255,255,255,0.9);
-    color: #000;
-    padding: 6px 10px;
-    border-radius: 5px;
-    font-size: 1.2em;
-    pointer-events: none;
-    z-index: 10;
-    display: none;
-    max-width: 250px;
-  }
+body {
+  margin: 20px;
+  font-family: Arial, sans-serif;
+  background: #f0f8ff; /* light background */
+}
+
+.youth-changemakers {
+  max-width: 600px;
+  margin: auto;
+}
+
+.changemaker {
+  background: #e0f7fa;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 8px 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.changemaker h3 {
+  font-size: 1.3em;
+  margin-bottom: 6px;
+}
+
+.changemaker h3 span {
+  font-size: 1em;
+  color: #555;
+  margin-left: 6px;
+}
+
+.changemaker ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.changemaker li {
+  margin: 4px 0;
+  font-size: 1.1em;
+}
 </style>
 </head>
 <body>
-<div id="globeViz"></div>
-<div class="globe-tooltip"></div>
-<script>
-const globeEl = Globe()(document.getElementById('globeViz'))
-  .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg') // reliable blue-green globe
-  .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
-  .backgroundColor('#000000')
-  .pointAltitude(0.03)
-  .pointColor(() => '#ff5722')
-  .pointsMerge(true)
-  .pointRadius(0.6)
-  .pointsData([
-    { lat: -10, lng: -62, tooltip: "Txai Suruí 🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker" },
-    { lat: 1.5, lng: 32.5, tooltip: "Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers" },
-    { lat: 56.1, lng: -106.3, tooltip: "Autumn Peltier 🇨🇦 Canada – Protects clean water; UN water-rights advocate" },
-    { lat: -19, lng: 29.9, tooltip: "Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums" },
-    { lat: -13.8, lng: -172.0, tooltip: "Brianna Fruean 🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush" },
-    { lat: 24.8, lng: 93.9, tooltip: "Licypriya Kangujam 🇮🇳 India – Young climate activist; Challenges world leaders" },
-    { lat: 0.3, lng: 32.6, tooltip: "Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement" },
-    { lat: 40.7, lng: -74, tooltip: "Xiuhtezcatl Martinez 🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians" },
-    { lat: -8.3, lng: 115.2, tooltip: "Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags" },
-    { lat: -8.4, lng: 115.2, tooltip: "Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags" }
-  ]);
 
-// Tooltip handling
-const tooltip = document.querySelector('.globe-tooltip');
+<div class="youth-changemakers">
 
-globeEl.onPointHover(point => {
-  if(point) {
-    tooltip.style.display = 'block';
-    tooltip.innerHTML = point.tooltip;
-  } else {
-    tooltip.style.display = 'none';
-  }
-});
+  <div class="changemaker">
+    <h3>Txai Suruí <span>🇧🇷 Brazil</span></h3>
+    <ul>
+      <li>Defends the Amazon rainforest</li>
+      <li>Indigenous youth leader & COP26 speaker</li>
+    </ul>
+  </div>
 
-// Make tooltip follow cursor
-document.addEventListener('mousemove', e => {
-  tooltip.style.top = (e.clientY + 15) + 'px';
-  tooltip.style.left = (e.clientX + 15) + 'px';
-});
-</script>
+  <div class="changemaker">
+    <h3>Nyombi Morris <span>🇺🇬 Uganda</span></h3>
+    <ul>
+      <li>Planted 47,500+ trees</li>
+      <li>Founder of Earth Volunteers</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Autumn Peltier <span>🇨🇦 Canada</span></h3>
+    <ul>
+      <li>Protects clean water for Indigenous communities</li>
+      <li>UN water-rights advocate</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Nkosilathi Nyathi <span>🇿🇼 Zimbabwe</span></h3>
+    <ul>
+      <li>Youth climate activist since age 10</li>
+      <li>Represents youth at global forums</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Brianna Fruean <span>🇼🇸 Samoa</span></h3>
+    <ul>
+      <li>Pacific climate leader</li>
+      <li>Leads 350 Samoa & Future Rush</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Licypriya Kangujam <span>🇮🇳 India</span></h3>
+    <ul>
+      <li>Young climate activist</li>
+      <li>Challenges world leaders on pollution & climate</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Vanessa Nakate <span>🇺🇬 Uganda</span></h3>
+    <ul>
+      <li>Amplifies African youth voices</li>
+      <li>Founder of Rise Up Climate Movement</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Xiuhtezcatl Martinez <span>🇺🇸 USA</span></h3>
+    <ul>
+      <li>Indigenous activist & hip-hop artist</li>
+      <li>Mobilizes youth through Earth Guardians</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Melati Wijsen <span>🇮🇩 Indonesia</span></h3>
+    <ul>
+      <li>Fights plastic pollution in Bali</li>
+      <li>Co-founder of Bye Bye Plastic Bags</li>
+    </ul>
+  </div>
+
+  <div class="changemaker">
+    <h3>Isabel Wijsen <span>🇮🇩 Indonesia</span></h3>
+    <ul>
+      <li>Youth climate leader</li>
+      <li>Co-founder of Bye Bye Plastic Bags</li>
+    </ul>
+  </div>
+
+</div>
+
 </body>
 </html>
