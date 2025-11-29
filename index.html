@@ -6,67 +6,61 @@
 <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
 <script src="https://unpkg.com/globe.gl"></script>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
-  #globeViz {
-    width: 100vw;
-    height: 100vh;
-  }
-  .tooltip {
-    font-family: Arial, sans-serif;
-    font-size: 1.1em;
+  body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; }
+  #globeViz { width: 100vw; height: 100vh; }
+  .globe-tooltip {
+    position: absolute;
+    background: rgba(255,255,255,0.9);
     color: #000;
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    pointer-events: none;
+    z-index: 10;
+    display: none;
   }
 </style>
 </head>
 <body>
 <div id="globeViz"></div>
+<div class="globe-tooltip"></div>
 <script>
-// Create the globe
-const Globe = Globe()
-  (document.getElementById('globeViz'))
-  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg') // green & blue globe
-  .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+const globeEl = Globe()(document.getElementById('globeViz'))
+  .globeImageUrl('https://raw.githubusercontent.com/roblabs/three-globe/master/example/img/earth-blue-marble.jpg') // blue-green globe
+  .bumpImageUrl('https://raw.githubusercontent.com/roblabs/three-globe/master/example/img/earth-topology.png')
   .backgroundColor('#000000')
-  .pointsData([
-    { lat: -10, lng: -62, name: "Txai Suruí", tooltip: "🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker" },
-    { lat: 1.5, lng: 32.5, name: "Nyombi Morris", tooltip: "🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers" },
-    { lat: 56.1, lng: -106.3, name: "Autumn Peltier", tooltip: "🇨🇦 Canada – Protects clean water; UN water-rights advocate" },
-    { lat: -19, lng: 29.9, name: "Nkosilathi Nyathi", tooltip: "🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums" },
-    { lat: -13.8, lng: -172.0, name: "Brianna Fruean", tooltip: "🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush" },
-    { lat: 24.8, lng: 93.9, name: "Licypriya Kangujam", tooltip: "🇮🇳 India – Young climate activist; Challenges world leaders" },
-    { lat: 0.3, lng: 32.6, name: "Vanessa Nakate", tooltip: "🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement" },
-    { lat: 40.7, lng: -74, name: "Xiuhtezcatl Martinez", tooltip: "🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians" },
-    { lat: -8.3, lng: 115.2, name: "Melati Wijsen", tooltip: "🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags" },
-    { lat: -8.4, lng: 115.2, name: "Isabel Wijsen", tooltip: "🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags" }
-  ])
-  .pointAltitude(0.02)
+  .pointAltitude(0.03)
   .pointColor(() => '#ff5722')
   .pointsMerge(true)
   .pointRadius(0.5)
+  .pointsData([
+    { lat: -10, lng: -62, tooltip: "Txai Suruí 🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker" },
+    { lat: 1.5, lng: 32.5, tooltip: "Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers" },
+    { lat: 56.1, lng: -106.3, tooltip: "Autumn Peltier 🇨🇦 Canada – Protects clean water; UN water-rights advocate" },
+    { lat: -19, lng: 29.9, tooltip: "Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums" },
+    { lat: -13.8, lng: -172.0, tooltip: "Brianna Fruean 🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush" },
+    { lat: 24.8, lng: 93.9, tooltip: "Licypriya Kangujam 🇮🇳 India – Young climate activist; Challenges world leaders" },
+    { lat: 0.3, lng: 32.6, tooltip: "Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement" },
+    { lat: 40.7, lng: -74, tooltip: "Xiuhtezcatl Martinez 🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians" },
+    { lat: -8.3, lng: 115.2, tooltip: "Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags" },
+    { lat: -8.4, lng: 115.2, tooltip: "Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags" }
+  ])
   .onPointHover(point => {
-    const tooltip = document.querySelector('.globe-tooltip') || createTooltip();
-    tooltip.innerHTML = point.tooltip;
-  })
-  .onPointClick(point => alert(point.tooltip));
+    const tooltip = document.querySelector('.globe-tooltip');
+    if(point) {
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = point.tooltip;
+    } else {
+      tooltip.style.display = 'none';
+    }
+  });
 
-// Create tooltip
-function createTooltip() {
-  const tooltip = document.createElement('div');
-  tooltip.className = 'globe-tooltip tooltip';
-  tooltip.style.position = 'absolute';
-  tooltip.style.top = '10px';
-  tooltip.style.left = '10px';
-  tooltip.style.background = 'rgba(255,255,255,0.9)';
-  tooltip.style.padding = '6px 10px';
-  tooltip.style.borderRadius = '5px';
-  tooltip.style.zIndex = 10;
-  document.body.appendChild(tooltip);
-  return tooltip;
-}
+// Make tooltip follow cursor
+document.addEventListener('mousemove', e => {
+  const tooltip = document.querySelector('.globe-tooltip');
+  tooltip.style.top = (e.clientY + 15) + 'px';
+  tooltip.style.left = (e.clientX + 15) + 'px';
+});
 </script>
 </body>
 </html>
