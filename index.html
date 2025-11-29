@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Youth Changemakers Globe Hotspots</title>
 <style>
-/* Container for all hotspots */
 .globe-hotspots {
   position: relative;
   width: 100%;
@@ -20,7 +14,7 @@
   background-color: #ff5722; /* visible dot color */
   border-radius: 50%;
   cursor: pointer;
-  transform: translate(-50%, -50%); /* center the dot */
+  transform: translate(-50%, -50%);
 }
 
 /* Invisible hitbox */
@@ -32,22 +26,22 @@
   width: 30px;  /* hitbox width */
   height: 30px; /* hitbox height */
   border-radius: 50%;
-  /* background-color: rgba(255,0,0,0.2); /* uncomment for debugging */
 }
 
 /* Tooltip styling */
 .tooltip {
   display: none;
   position: absolute;
-  top: -40px;
+  top: -50px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0,0,0,0.8);
-  color: #fff;
-  padding: 5px 10px;
+  background: rgba(255,255,255,0.9); /* light background */
+  color: #000; /* dark text */
+  padding: 6px 10px;
   border-radius: 5px;
   font-size: 0.9em;
   white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   pointer-events: none;
   z-index: 10;
 }
@@ -56,52 +50,47 @@
   display: block;
 }
 </style>
-</head>
-<body>
 
 <div class="globe-hotspots">
 
   <div class="hotspot" style="top: 20%; left: 40%;">
-    <div class="tooltip">Txai Suruí 🇧🇷 Brazil – Protects Amazon rainforest</div>
+    <div class="tooltip">Txai Suruí 🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker</div>
   </div>
 
   <div class="hotspot" style="top: 30%; left: 45%;">
-    <div class="tooltip">Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees</div>
+    <div class="tooltip">Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers</div>
   </div>
 
   <div class="hotspot" style="top: 15%; left: 30%;">
-    <div class="tooltip">Autumn Peltier 🇨🇦 Canada – Water-rights advocate</div>
+    <div class="tooltip">Autumn Peltier 🇨🇦 Canada – Protects clean water; UN water-rights advocate</div>
   </div>
 
   <div class="hotspot" style="top: 35%; left: 50%;">
-    <div class="tooltip">Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist</div>
+    <div class="tooltip">Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums</div>
   </div>
 
   <div class="hotspot" style="top: 40%; left: 20%;">
-    <div class="tooltip">Brianna Fruean 🇼🇸 Samoa – Pacific climate leader</div>
+    <div class="tooltip">Brianna Fruean 🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush</div>
   </div>
 
   <div class="hotspot" style="top: 25%; left: 35%;">
-    <div class="tooltip">Licypriya Kangujam 🇮🇳 India – Young climate activist</div>
+    <div class="tooltip">Licypriya Kangujam 🇮🇳 India – Young climate activist; Challenges world leaders</div>
   </div>
 
   <div class="hotspot" style="top: 33%; left: 48%;">
-    <div class="tooltip">Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices</div>
+    <div class="tooltip">Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement</div>
   </div>
 
   <div class="hotspot" style="top: 18%; left: 28%;">
-    <div class="tooltip">Xiuhtezcatl Martinez 🇺🇸 USA – Mobilizes youth through Earth Guardians</div>
+    <div class="tooltip">Xiuhtezcatl Martinez 🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians</div>
   </div>
 
   <div class="hotspot" style="top: 45%; left: 25%;">
-    <div class="tooltip">Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution</div>
+    <div class="tooltip">Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags</div>
   </div>
 
   <div class="hotspot" style="top: 47%; left: 27%;">
-    <div class="tooltip">Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader</div>
+    <div class="tooltip">Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags</div>
   </div>
 
 </div>
-
-</body>
-</html>
