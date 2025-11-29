@@ -28,6 +28,7 @@
   .flag { width:50px; display:block; margin-bottom:10px; border:1px solid #ccc; }
   .name { font-size: 18px; font-weight:bold; color:#003d73; margin-bottom:5px; }
   .person-text { font-size: 14px; line-height:1.4; margin-top:10px; }
+  .country { font-weight: bold; color: #003d73; margin-bottom: 5px; }
 </style>
 </head>
 <body>
@@ -44,16 +45,16 @@
 
 <script>
 const hotspots = [
-  { lat:-14.2, lng:-51.9, name:"Txai Suruí", text:["Brazil","Defends the Amazon rainforest","Indigenous youth leader & COP26 speaker"], flag:"https://flagcdn.com/w40/br.png" },
-  { lat:1.37, lng:32.29, name:"Nyombi Morris", text:["Uganda","Planted 47,500+ trees","Founder of Earth Volunteers"], flag:"https://flagcdn.com/w40/ug.png" },
-  { lat:50, lng:-85, name:"Autumn Peltier", text:["Canada","Protects clean water for Indigenous communities","UN water-rights advocate"], flag:"https://flagcdn.com/w40/ca.png" },
-  { lat:-19, lng:30, name:"Nkosilathi Nyathi", text:["Zimbabwe","Youth climate activist since age 10","Represents youth at global forums"], flag:"https://flagcdn.com/w40/zw.png" },
-  { lat:-13.8, lng:-172, name:"Brianna Fruean", text:["Samoa","Pacific climate leader","Leads 350 Samoa & Future Rush"], flag:"https://flagcdn.com/w40/ws.png" },
-  { lat:21, lng:78, name:"Licypriya Kangujam", text:["India","Young climate activist","Challenges world leaders on pollution & climate"], flag:"https://flagcdn.com/w40/in.png" },
-  { lat:1.37, lng:32.29, name:"Vanessa Nakate", text:["Uganda","Amplifies African youth voices","Founder of Rise Up Climate Movement"], flag:"https://flagcdn.com/w40/ug.png" },
-  { lat:34.05, lng:-118.25, name:"Xiuhtezcatl Martinez", text:["USA","Indigenous activist & hip-hop artist","Mobilizes youth through Earth Guardians"], flag:"https://flagcdn.com/w40/us.png" },
-  { lat:-8.4, lng:115.1, name:"Melati Wijsen", text:["Indonesia (Bali)","Fights plastic pollution in Bali","Co-founder of Bye Bye Plastic Bags"], flag:"https://flagcdn.com/w40/id.png" },
-  { lat:-8.4, lng:115.1, name:"Isabel Wijsen", text:["Indonesia (Bali)","Youth climate leader","Co-founder of Bye Bye Plastic Bags"], flag:"https://flagcdn.com/w40/id.png" }
+  { lat:-14.2, lng:-51.9, name:"Txai Suruí", country:"Brazil", text:["Defends the Amazon rainforest","Indigenous youth leader & COP26 speaker"], flag:"https://flagcdn.com/w40/br.png" },
+  { lat:1.37, lng:32.29, name:"Nyombi Morris", country:"Uganda", text:["Planted 47,500+ trees","Founder of Earth Volunteers"], flag:"https://flagcdn.com/w40/ug.png" },
+  { lat:50, lng:-85, name:"Autumn Peltier", country:"Canada", text:["Protects clean water for Indigenous communities","UN water-rights advocate"], flag:"https://flagcdn.com/w40/ca.png" },
+  { lat:-19, lng:30, name:"Nkosilathi Nyathi", country:"Zimbabwe", text:["Youth climate activist since age 10","Represents youth at global forums"], flag:"https://flagcdn.com/w40/zw.png" },
+  { lat:-13.8, lng:-172, name:"Brianna Fruean", country:"Samoa", text:["Pacific climate leader","Leads 350 Samoa & Future Rush"], flag:"https://flagcdn.com/w40/ws.png" },
+  { lat:21, lng:78, name:"Licypriya Kangujam", country:"India", text:["Young climate activist","Challenges world leaders on pollution & climate"], flag:"https://flagcdn.com/w40/in.png" },
+  { lat:1.37, lng:32.29, name:"Vanessa Nakate", country:"Uganda", text:["Amplifies African youth voices","Founder of Rise Up Climate Movement"], flag:"https://flagcdn.com/w40/ug.png" },
+  { lat:34.05, lng:-118.25, name:"Xiuhtezcatl Martinez", country:"USA", text:["Indigenous activist & hip-hop artist","Mobilizes youth through Earth Guardians"], flag:"https://flagcdn.com/w40/us.png" },
+  { lat:-8.4, lng:115.1, name:"Melati Wijsen", country:"Indonesia (Bali)", text:["Fights plastic pollution in Bali","Co-founder of Bye Bye Plastic Bags"], flag:"https://flagcdn.com/w40/id.png" },
+  { lat:-8.4, lng:115.1, name:"Isabel Wijsen", country:"Indonesia (Bali)", text:["Youth climate leader","Co-founder of Bye Bye Plastic Bags"], flag:"https://flagcdn.com/w40/id.png" }
 ];
 
 const infoText = document.getElementById('infoText');
@@ -65,13 +66,16 @@ const globe = Globe()
   .pointLng(d => d.lng)
   .pointColor(()=>'orange')
   .pointAltitude(0.03)
-  .pointRadius(1.5) // <-- bigger hotspot
+  .pointRadius(1.5) // larger hotspot
   .pointLabel(d => d.name)
   .onPointClick(d => {
     infoText.innerHTML = `
       <img class="flag" src="${d.flag}">
       <div class="name">${d.name}</div>
-      <div class="person-text">${d.text.join('<br>')}</div>
+      <div class="person-text">
+        <div class="country">${d.country}</div>
+        ${d.text.join('<br>')}
+      </div>
     `;
   })
 (document.getElementById('globe'));
@@ -81,7 +85,7 @@ let t = 0;
 function pulse() {
   t += 0.05;
   globe.pointsData(hotspots)
-       .pointAltitude(d => 0.03 + 0.03 * Math.sin(t*2 + hotspots.indexOf(d))); // <-- stronger pulse
+       .pointAltitude(d => 0.03 + 0.03 * Math.sin(t*2 + hotspots.indexOf(d)));
   requestAnimationFrame(pulse);
 }
 pulse();
