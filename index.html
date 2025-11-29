@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Globe - Climate Education</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; }
+    .container {
+      display: flex;
+      flex-direction: row;
+      height: 100vh;
+    }
+    #globeContainer { flex: 2; }
+    #infoBox {
+      flex: 1;
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      overflow-y: auto;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+    }
+    #infoBox img { width: 100%; margin-top: 10px; border-radius: 5px; }
+    h3 { margin-top: 0; }
+
+    /* Mobile-friendly stacking */
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      #globeContainer, #infoBox {
+        height: 50vh;
+        width: 100%;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="globeContainer"></div>
+    <div id="infoBox">
+      <h3>Click a hotspot to see information</h3>
+      <p>The info for each location will appear here when you click on a hotspot.</p>
+    </div>
+  </div>
+
+  <!-- Load Three.js and Globe.gl -->
+  <script src="https://unpkg.com/three@0.152.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/globe.gl"></script>
+
+  <script>
+    const infoBox = document.getElementById('infoBox');
+
+    const hotspots = [
+      { lat: 51.2538, lng: -85.3232, color: 'red', size: 0.5, name: 'Ontario, Canada', content: '<h3>Ontario, Canada</h3><p>Beautiful province with lakes and forests.</p><img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Ontario_Lakes.jpg">' },
+      { lat: -19.0154, lng: 29.1549, color: 'blue', size: 0.5, name: 'Zimbabwe', content: '<h3>Zimbabwe</h3><p>Home to Victoria Falls and rich wildlife.</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Victoria_Falls_Zimbabwe.jpg">' },
+      { lat: -13.7590, lng: -172.1046, color: 'green', size: 0.5, name: 'Samoa', content: '<h3>Samoa</h3><p>Island paradise in the South Pacific.</p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Samoa_beach.jpg">' },
+      { lat: 20.5937, lng: 78.9629, color: 'orange', size: 0.5, name: 'India', content: '<h3>India</h3><p>Land of diverse culture, food, and history.</p><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Taj_Mahal_in_March_2004.jpg">' },
+      { lat: -8.3405, lng: 115.0920, color: 'purple', size: 0.5, name: 'Bali', content: '<h3>Bali</h3><p>Famous Indonesian island with beaches and temples.</p><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Bali_beach_sunset.jpg">' },
+      { lat: 55.3781, lng: -3.4360, color: 'pink', size: 0.5, name: 'Britain', content: '<h3>Britain</h3><p>Historic country with castles and countryside.</p><img src="https://upload.wikimedia.org/wikipedia/commons/4/44/London_skyline.jpg">' },
+      { lat: 34.0522, lng: -118.2437, color: 'cyan', size: 0.5, name: 'Los Angeles, California', content: '<h3>Los Angeles, California</h3><p>City of stars, beaches, and Hollywood.</p><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/LA_Skyline_Mountains2.jpg">' },
+      { lat: 31.9632, lng: 35.9306, color: 'yellow', size: 0.5, name: 'Jordan', content: '<h3>Jordan</h3><p>Home of Petra and the Dead Sea.</p><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Petra_Jordan_Siqq.jpg">' },
+      { lat: -14.2350, lng: -51.9253, color: 'lime', size: 0.5, name: 'Brazil', content: '<h3>Brazil</h3><p>Famous for Amazon rainforest and Carnival.</p><img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Rio_de_Janeiro_Corcovado.jpg">' },
+      { lat: 1.3733, lng: 32.2903, color: 'magenta', size: 0.5, name: 'Uganda', content: '<h3>Uganda</h3><p>Land of lakes, mountains, and wildlife.</p><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Murchison_Falls_National_Park.jpg">' }
+    ];
+
+    const myGlobe = Globe()
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
+      .pointsData(hotspots)
+      .pointAltitude('size')
+      .pointColor('color')
+      .onPointClick(d => {
+        infoBox.innerHTML = d.content;
+      })
+      .onBackgroundClick(() => {
+        infoBox.innerHTML = '<h3>Click a hotspot to see information</h3><p>The info for each location will appear here when you click on a hotspot.</p>';
+      })
+      (document.getElementById('globeContainer'));
+  </script>
+</body>
+</html>
+
