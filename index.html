@@ -14,10 +14,11 @@
     color: #000;
     padding: 6px 10px;
     border-radius: 5px;
-    font-size: 1.1em;
+    font-size: 1.2em;
     pointer-events: none;
     z-index: 10;
     display: none;
+    max-width: 250px;
   }
 </style>
 </head>
@@ -26,13 +27,13 @@
 <div class="globe-tooltip"></div>
 <script>
 const globeEl = Globe()(document.getElementById('globeViz'))
-  .globeImageUrl('https://raw.githubusercontent.com/roblabs/three-globe/master/example/img/earth-blue-marble.jpg') // blue-green globe
-  .bumpImageUrl('https://raw.githubusercontent.com/roblabs/three-globe/master/example/img/earth-topology.png')
+  .globeImageUrl('https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg') // reliable blue-green globe
+  .bumpImageUrl('https://unpkg.com/three-globe/example/img/earth-topology.png')
   .backgroundColor('#000000')
   .pointAltitude(0.03)
   .pointColor(() => '#ff5722')
   .pointsMerge(true)
-  .pointRadius(0.5)
+  .pointRadius(0.6)
   .pointsData([
     { lat: -10, lng: -62, tooltip: "Txai Suruí 🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker" },
     { lat: 1.5, lng: 32.5, tooltip: "Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers" },
@@ -44,20 +45,22 @@ const globeEl = Globe()(document.getElementById('globeViz'))
     { lat: 40.7, lng: -74, tooltip: "Xiuhtezcatl Martinez 🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians" },
     { lat: -8.3, lng: 115.2, tooltip: "Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags" },
     { lat: -8.4, lng: 115.2, tooltip: "Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags" }
-  ])
-  .onPointHover(point => {
-    const tooltip = document.querySelector('.globe-tooltip');
-    if(point) {
-      tooltip.style.display = 'block';
-      tooltip.innerHTML = point.tooltip;
-    } else {
-      tooltip.style.display = 'none';
-    }
-  });
+  ]);
+
+// Tooltip handling
+const tooltip = document.querySelector('.globe-tooltip');
+
+globeEl.onPointHover(point => {
+  if(point) {
+    tooltip.style.display = 'block';
+    tooltip.innerHTML = point.tooltip;
+  } else {
+    tooltip.style.display = 'none';
+  }
+});
 
 // Make tooltip follow cursor
 document.addEventListener('mousemove', e => {
-  const tooltip = document.querySelector('.globe-tooltip');
   tooltip.style.top = (e.clientY + 15) + 'px';
   tooltip.style.left = (e.clientX + 15) + 'px';
 });
