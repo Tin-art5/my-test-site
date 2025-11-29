@@ -1,96 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Youth Changemakers Globe</title>
+<script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
 <style>
-.globe-hotspots {
-  position: relative;
-  width: 100%;
-  height: 600px; /* adjust as needed */
-  background: #e0f7fa; /* placeholder for globe */
-}
-
-/* Individual hotspot */
-.hotspot {
-  position: absolute; /* will be positioned by globe coords */
-  width: 10px;  /* visual dot size */
-  height: 10px;
-  background-color: #ff5722; /* visible dot color */
-  border-radius: 50%;
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-}
-
-/* Invisible hitbox */
-.hotspot::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  width: 30px;  /* hitbox width */
-  height: 30px; /* hitbox height */
-  border-radius: 50%;
-}
-
-/* Tooltip styling */
-.tooltip {
-  display: none;
-  position: absolute;
-  top: -50px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.9); /* light background */
-  color: #000; /* dark text */
-  padding: 6px 10px;
-  border-radius: 5px;
-  font-size: 0.9em;
-  white-space: nowrap;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  pointer-events: none;
-  z-index: 10;
-}
-
-.hotspot:hover .tooltip {
-  display: block;
-}
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  #globeViz {
+    width: 100vw;
+    height: 100vh;
+  }
+  .tooltip {
+    font-family: Arial, sans-serif;
+    font-size: 1.1em;
+    color: #000;
+  }
 </style>
+</head>
+<body>
+<div id="globeViz"></div>
+<script>
+// Create the globe
+const Globe = Globe()
+  (document.getElementById('globeViz'))
+  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg') // green & blue globe
+  .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+  .backgroundColor('#000000')
+  .pointsData([
+    { lat: -10, lng: -62, name: "Txai Suruí", tooltip: "🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker" },
+    { lat: 1.5, lng: 32.5, name: "Nyombi Morris", tooltip: "🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers" },
+    { lat: 56.1, lng: -106.3, name: "Autumn Peltier", tooltip: "🇨🇦 Canada – Protects clean water; UN water-rights advocate" },
+    { lat: -19, lng: 29.9, name: "Nkosilathi Nyathi", tooltip: "🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums" },
+    { lat: -13.8, lng: -172.0, name: "Brianna Fruean", tooltip: "🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush" },
+    { lat: 24.8, lng: 93.9, name: "Licypriya Kangujam", tooltip: "🇮🇳 India – Young climate activist; Challenges world leaders" },
+    { lat: 0.3, lng: 32.6, name: "Vanessa Nakate", tooltip: "🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement" },
+    { lat: 40.7, lng: -74, name: "Xiuhtezcatl Martinez", tooltip: "🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians" },
+    { lat: -8.3, lng: 115.2, name: "Melati Wijsen", tooltip: "🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags" },
+    { lat: -8.4, lng: 115.2, name: "Isabel Wijsen", tooltip: "🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags" }
+  ])
+  .pointAltitude(0.02)
+  .pointColor(() => '#ff5722')
+  .pointsMerge(true)
+  .pointRadius(0.5)
+  .onPointHover(point => {
+    const tooltip = document.querySelector('.globe-tooltip') || createTooltip();
+    tooltip.innerHTML = point.tooltip;
+  })
+  .onPointClick(point => alert(point.tooltip));
 
-<div class="globe-hotspots">
-
-  <div class="hotspot" style="top: 20%; left: 40%;">
-    <div class="tooltip">Txai Suruí 🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker</div>
-  </div>
-
-  <div class="hotspot" style="top: 30%; left: 45%;">
-    <div class="tooltip">Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers</div>
-  </div>
-
-  <div class="hotspot" style="top: 15%; left: 30%;">
-    <div class="tooltip">Autumn Peltier 🇨🇦 Canada – Protects clean water; UN water-rights advocate</div>
-  </div>
-
-  <div class="hotspot" style="top: 35%; left: 50%;">
-    <div class="tooltip">Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums</div>
-  </div>
-
-  <div class="hotspot" style="top: 40%; left: 20%;">
-    <div class="tooltip">Brianna Fruean 🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush</div>
-  </div>
-
-  <div class="hotspot" style="top: 25%; left: 35%;">
-    <div class="tooltip">Licypriya Kangujam 🇮🇳 India – Young climate activist; Challenges world leaders</div>
-  </div>
-
-  <div class="hotspot" style="top: 33%; left: 48%;">
-    <div class="tooltip">Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement</div>
-  </div>
-
-  <div class="hotspot" style="top: 18%; left: 28%;">
-    <div class="tooltip">Xiuhtezcatl Martinez 🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians</div>
-  </div>
-
-  <div class="hotspot" style="top: 45%; left: 25%;">
-    <div class="tooltip">Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags</div>
-  </div>
-
-  <div class="hotspot" style="top: 47%; left: 27%;">
-    <div class="tooltip">Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags</div>
-  </div>
-
-</div>
+// Create tooltip
+function createTooltip() {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'globe-tooltip tooltip';
+  tooltip.style.position = 'absolute';
+  tooltip.style.top = '10px';
+  tooltip.style.left = '10px';
+  tooltip.style.background = 'rgba(255,255,255,0.9)';
+  tooltip.style.padding = '6px 10px';
+  tooltip.style.borderRadius = '5px';
+  tooltip.style.zIndex = 10;
+  document.body.appendChild(tooltip);
+  return tooltip;
+}
+</script>
+</body>
+</html>
