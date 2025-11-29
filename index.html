@@ -2,122 +2,106 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Youth Climate Leaders Globe</title>
+<title>Youth Changemakers Globe Hotspots</title>
 <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    display: flex;
-    overflow: hidden;
-  }
+/* Container for all hotspots */
+.globe-hotspots {
+  position: relative;
+  width: 100%;
+  height: 600px; /* adjust as needed */
+  background: #e0f7fa; /* placeholder for globe */
+}
 
-  /* Globe on the left */
-  #globe {
-    flex: 2;
-    min-width: 400px;
-    background: transparent;
-  }
+/* Individual hotspot */
+.hotspot {
+  position: absolute; /* will be positioned by globe coords */
+  width: 10px;  /* visual dot size */
+  height: 10px;
+  background-color: #ff5722; /* visible dot color */
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%); /* center the dot */
+}
 
-  /* Info panel on the right */
-  #info {
-    flex: 1;
-    max-width: 400px;
-    padding: 20px;
-    background: #f5f5f5;
-    overflow-y: auto;
-    box-sizing: border-box;
-  }
+/* Invisible hitbox */
+.hotspot::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 30px;  /* hitbox width */
+  height: 30px; /* hitbox height */
+  border-radius: 50%;
+  /* background-color: rgba(255,0,0,0.2); /* uncomment for debugging */
+}
 
-  #info h2 {
-    margin-top: 0;
-    font-size: 18px;
-    color: #003d73;
-  }
+/* Tooltip styling */
+.tooltip {
+  display: none;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
 
-  .flag {
-    width: 50px;
-    display: block;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-  }
-
-  .name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #003d73;
-    margin-bottom: 5px;
-  }
-
-  .person-text {
-    font-size: 14px;
-    line-height: 1.4;
-    margin-top: 10px;
-  }
-
-  /* Responsive layout for smaller screens */
-  @media(max-width: 900px) {
-    body {
-      flex-direction: column;
-    }
-    #globe {
-      flex: none;
-      height: 50vh;
-    }
-    #info {
-      max-width: 100%;
-      height: 50vh;
-    }
-  }
+.hotspot:hover .tooltip {
+  display: block;
+}
 </style>
 </head>
 <body>
 
-<div id="globe"></div>
+<div class="globe-hotspots">
 
-<div id="info">
-  <h2>Click a hotspot to see information</h2>
-  <div id="infoText">The info will appear here when you click a hotspot.</div>
+  <div class="hotspot" style="top: 20%; left: 40%;">
+    <div class="tooltip">Txai Suruí 🇧🇷 Brazil – Protects Amazon rainforest</div>
+  </div>
+
+  <div class="hotspot" style="top: 30%; left: 45%;">
+    <div class="tooltip">Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees</div>
+  </div>
+
+  <div class="hotspot" style="top: 15%; left: 30%;">
+    <div class="tooltip">Autumn Peltier 🇨🇦 Canada – Water-rights advocate</div>
+  </div>
+
+  <div class="hotspot" style="top: 35%; left: 50%;">
+    <div class="tooltip">Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist</div>
+  </div>
+
+  <div class="hotspot" style="top: 40%; left: 20%;">
+    <div class="tooltip">Brianna Fruean 🇼🇸 Samoa – Pacific climate leader</div>
+  </div>
+
+  <div class="hotspot" style="top: 25%; left: 35%;">
+    <div class="tooltip">Licypriya Kangujam 🇮🇳 India – Young climate activist</div>
+  </div>
+
+  <div class="hotspot" style="top: 33%; left: 48%;">
+    <div class="tooltip">Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices</div>
+  </div>
+
+  <div class="hotspot" style="top: 18%; left: 28%;">
+    <div class="tooltip">Xiuhtezcatl Martinez 🇺🇸 USA – Mobilizes youth through Earth Guardians</div>
+  </div>
+
+  <div class="hotspot" style="top: 45%; left: 25%;">
+    <div class="tooltip">Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution</div>
+  </div>
+
+  <div class="hotspot" style="top: 47%; left: 27%;">
+    <div class="tooltip">Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader</div>
+  </div>
+
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js"></script>
-<script src="https://unpkg.com/globe.gl"></script>
-
-<script>
-const hotspots = [
-  { lat:-14.2, lng:-51.9, name:"Txai Suruí", text:["Defends the Amazon rainforest","Indigenous youth leader & COP26 speaker"], flag:"https://flagcdn.com/w40/br.png" },
-  { lat:1.37, lng:32.29, name:"Nyombi Morris", text:["Planted 47,500+ trees","Founder of Earth Volunteers"], flag:"https://flagcdn.com/w40/ug.png" },
-  { lat:50, lng:-85, name:"Autumn Peltier", text:["Protects clean water for Indigenous communities","UN water-rights advocate"], flag:"https://flagcdn.com/w40/ca.png" },
-  { lat:-19, lng:30, name:"Nkosilathi Nyathi", text:["Youth climate activist since age 10","Represents youth at global forums"], flag:"https://flagcdn.com/w40/zw.png" },
-  { lat:-13.8, lng:-172, name:"Brianna Fruean", text:["Pacific climate leader","Leads 350 Samoa & Future Rush"], flag:"https://flagcdn.com/w40/ws.png" },
-  { lat:21, lng:78, name:"Licypriya Kangujam", text:["Young climate activist","Challenges world leaders on pollution & climate"], flag:"https://flagcdn.com/w40/in.png" },
-  { lat:1.37, lng:32.29, name:"Vanessa Nakate", text:["Amplifies African youth voices","Founder of Rise Up Climate Movement"], flag:"https://flagcdn.com/w40/ug.png" },
-  { lat:34.05, lng:-118.25, name:"Xiuhtezcatl Martinez", text:["Indigenous activist & hip-hop artist","Mobilizes youth through Earth Guardians"], flag:"https://flagcdn.com/w40/us.png" },
-  { lat:-8.4, lng:115.1, name:"Melati Wijsen", text:["Fights plastic pollution in Bali","Co-founder of Bye Bye Plastic Bags"], flag:"https://flagcdn.com/w40/id.png" },
-  { lat:-8.4, lng:115.1, name:"Isabel Wijsen", text:["Youth climate leader","Co-founder of Bye Bye Plastic Bags"], flag:"https://flagcdn.com/w40/id.png" }
-];
-
-const infoText = document.getElementById('infoText');
-
-// Create the globe — guaranteed blue/green globe
-const globe = Globe()
-  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
-  .pointsData(hotspots)
-  .pointLat(d => d.lat)
-  .pointLng(d => d.lng)
-  .pointColor(()=>'orange')
-  .pointAltitude(0.03)
-  .pointRadius(0.5)
-  .onPointClick(d => {
-    infoText.innerHTML = `
-      <img class="flag" src="${d.flag}">
-      <div class="name">${d.name}</div>
-      <div class="person-text">${d.text.join('<br>')}</div>
-    `;
-  })
-(document.getElementById('globe'));
-</script>
 
 </body>
 </html>
-
