@@ -10,123 +10,102 @@ body {
   background: #f0f8ff; /* light background */
 }
 
-.youth-changemakers {
-  max-width: 600px;
+.globe-hotspots {
+  position: relative;
+  width: 600px;  /* placeholder globe size */
+  height: 400px;
   margin: auto;
+  background: #cce6ff; /* just a simple blue placeholder for globe */
+  border-radius: 50%;
 }
 
-.changemaker {
-  background: #e0f7fa;
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin: 8px 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+/* Individual hotspot */
+.hotspot {
+  position: absolute;
+  width: 10px;  /* visual dot size */
+  height: 10px;
+  background-color: #ff5722; /* visible dot */
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
 }
 
-.changemaker h3 {
-  font-size: 1.3em;
-  margin-bottom: 6px;
+/* Invisible hitbox to make it easier to hover */
+.hotspot::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
-.changemaker h3 span {
-  font-size: 1em;
-  color: #555;
-  margin-left: 6px;
-}
-
-.changemaker ul {
-  padding-left: 20px;
-  margin: 0;
-}
-
-.changemaker li {
-  margin: 4px 0;
+/* Tooltip */
+.tooltip {
+  display: none;
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.9);
+  color: #000;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
   font-size: 1.1em;
+  white-space: pre-wrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hotspot:hover .tooltip {
+  display: block;
 }
 </style>
 </head>
 <body>
 
-<div class="youth-changemakers">
+<div class="globe-hotspots">
 
-  <div class="changemaker">
-    <h3>Txai Suruí <span>🇧🇷 Brazil</span></h3>
-    <ul>
-      <li>Defends the Amazon rainforest</li>
-      <li>Indigenous youth leader & COP26 speaker</li>
-    </ul>
+  <div class="hotspot" style="top: 20%; left: 40%;">
+    <div class="tooltip">Txai Suruí 🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Nyombi Morris <span>🇺🇬 Uganda</span></h3>
-    <ul>
-      <li>Planted 47,500+ trees</li>
-      <li>Founder of Earth Volunteers</li>
-    </ul>
+  <div class="hotspot" style="top: 30%; left: 45%;">
+    <div class="tooltip">Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Autumn Peltier <span>🇨🇦 Canada</span></h3>
-    <ul>
-      <li>Protects clean water for Indigenous communities</li>
-      <li>UN water-rights advocate</li>
-    </ul>
+  <div class="hotspot" style="top: 15%; left: 30%;">
+    <div class="tooltip">Autumn Peltier 🇨🇦 Canada – Protects clean water; UN water-rights advocate</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Nkosilathi Nyathi <span>🇿🇼 Zimbabwe</span></h3>
-    <ul>
-      <li>Youth climate activist since age 10</li>
-      <li>Represents youth at global forums</li>
-    </ul>
+  <div class="hotspot" style="top: 35%; left: 50%;">
+    <div class="tooltip">Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Brianna Fruean <span>🇼🇸 Samoa</span></h3>
-    <ul>
-      <li>Pacific climate leader</li>
-      <li>Leads 350 Samoa & Future Rush</li>
-    </ul>
+  <div class="hotspot" style="top: 40%; left: 20%;">
+    <div class="tooltip">Brianna Fruean 🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Licypriya Kangujam <span>🇮🇳 India</span></h3>
-    <ul>
-      <li>Young climate activist</li>
-      <li>Challenges world leaders on pollution & climate</li>
-    </ul>
+  <div class="hotspot" style="top: 25%; left: 35%;">
+    <div class="tooltip">Licypriya Kangujam 🇮🇳 India – Young climate activist; Challenges world leaders</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Vanessa Nakate <span>🇺🇬 Uganda</span></h3>
-    <ul>
-      <li>Amplifies African youth voices</li>
-      <li>Founder of Rise Up Climate Movement</li>
-    </ul>
+  <div class="hotspot" style="top: 33%; left: 48%;">
+    <div class="tooltip">Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Xiuhtezcatl Martinez <span>🇺🇸 USA</span></h3>
-    <ul>
-      <li>Indigenous activist & hip-hop artist</li>
-      <li>Mobilizes youth through Earth Guardians</li>
-    </ul>
+  <div class="hotspot" style="top: 18%; left: 28%;">
+    <div class="tooltip">Xiuhtezcatl Martinez 🇺🇸 USA – Indigenous activist & hip-hop artist; Mobilizes youth through Earth Guardians</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Melati Wijsen <span>🇮🇩 Indonesia</span></h3>
-    <ul>
-      <li>Fights plastic pollution in Bali</li>
-      <li>Co-founder of Bye Bye Plastic Bags</li>
-    </ul>
+  <div class="hotspot" style="top: 45%; left: 25%;">
+    <div class="tooltip">Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags</div>
   </div>
 
-  <div class="changemaker">
-    <h3>Isabel Wijsen <span>🇮🇩 Indonesia</span></h3>
-    <ul>
-      <li>Youth climate leader</li>
-      <li>Co-founder of Bye Bye Plastic Bags</li>
-    </ul>
+  <div class="hotspot" style="top: 47%; left: 27%;">
+    <div class="tooltip">Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags</div>
   </div>
 
 </div>
