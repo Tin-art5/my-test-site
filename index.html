@@ -1,69 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Interactive Globe</title>
-  <style>
-    body {
-      margin: 0;
-      display: flex;
-      height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-    #globeViz {
-      width: 65%;
-      height: 100%;
-      background: #000;
-    }
-    #infoBox {
-      width: 35%;
-      padding: 20px;
-      background: #f5f5f5;
-      overflow-y: auto;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Interactive Globe</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+  }
+  #globeViz {
+    flex: 2;
+    background: #000;
+  }
+  #infoBox {
+    flex: 1;
+    padding: 20px;
+    background: #f5f5f5;
+    overflow-y: auto;
+  }
+  #infoBox h2 {
+    margin-top: 0;
+  }
+</style>
 </head>
-
 <body>
-  <div id="globeViz"></div>
-  <div id="infoBox">
-    <h2>Click a hotspot to see information</h2>
-    <p id="infoText">The info for each location will appear here when you click on a hotspot.</p>
-  </div>
+<div id="globeViz"></div>
+<div id="infoBox">
+  <h2>Click a hotspot to see information</h2>
+  <p id="infoText">The info for each location will appear here when you click on a hotspot.</p>
+</div>
 
-  <!-- Load Globe.gl + Three.js from CDN -->
-  <script src="https://unpkg.com/three"></script>
-  <script src="https://unpkg.com/globe.gl"></script>
+<!-- Load Three.js and Globe.gl -->
+<script src="https://unpkg.com/three@0.152.0/build/three.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
 
-  <script>
-    const hotspots = [
-      { lat: 50, lng: -85, name: "Ontario, Canada", text: "Information about Ontario." },
-      { lat: -19, lng: 30, name: "Zimbabwe", text: "Information about Zimbabwe." },
-      { lat: -13.5, lng: -172, name: "Samoa", text: "Information about Samoa." },
-      { lat: 20, lng: 78, name: "India", text: "Information about India." },
-      { lat: -8.4, lng: 115.1, name: "Bali", text: "Information about Bali." },
-      { lat: 52.3, lng: -1.5, name: "Britain", text: "Information about Britain." },
-      { lat: 34.05, lng: -118.25, name: "Los Angeles", text: "Information about LA." },
-      { lat: 31, lng: 36, name: "Jordan", text: "Information about Jordan." },
-      { lat: -14, lng: -51, name: "Brazil", text: "Information about Brazil." },
-      { lat: 1.37, lng: 32.3, name: "Uganda", text: "Information about Uganda." }
-    ];
+<script>
+// Hotspots
+const hotspots = [
+  { lat: 50, lng: -85, name: "Ontario, Canada", text: "Home to the Great Lakes and vast forests." },
+  { lat: -19, lng: 30, name: "Zimbabwe", text: "Location of Victoria Falls and diverse wildlife." },
+  { lat: -13.8, lng: -172, name: "Samoa", text: "Beautiful Pacific island with rich traditions." },
+  { lat: 21, lng: 78, name: "India", text: "A land of languages, cultures, and varied climates." },
+  { lat: -8.4, lng: 115.1, name: "Bali", text: "Indonesian island known for beaches and temples." },
+  { lat: 52.3, lng: -1.5, name: "Britain", text: "A group of islands with long histories and stories." },
+  { lat: 34.05, lng: -118.25, name: "Los Angeles, California", text: "A global hub of film, art, and sunny weather." },
+  { lat: 31.24, lng: 36.51, name: "Jordan", text: "Home to Petra and dramatic desert landscapes." },
+  { lat: -14.2, lng: -51.9, name: "Brazil", text: "The largest country in South America." },
+  { lat: 1.37, lng: 32.29, name: "Uganda", text: "Known as the Pearl of Africa." }
+];
 
-    const infoText = document.getElementById('infoText');
+const infoText = document.getElementById('infoText');
 
-    const world = Globe()
-      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-      .pointsData(hotspots)
-      .pointLat(d => d.lat)
-      .pointLng(d => d.lng)
-      .pointColor(() => 'orange')
-      .pointAltitude(0.02)
-      .pointRadius(0.5)
-      .onPointClick(d => {
-        infoText.innerHTML = `<strong>${d.name}</strong><br>${d.text}`;
-      })
-    (document.getElementById('globeViz'));
-
-  </script>
+// Create Globe
+const myGlobe = Globe()
+  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg') // nice blue & green texture
+  .pointsData(hotspots)
+  .pointLat(d => d.lat)
+  .pointLng(d => d.lng)
+  .pointColor(() => 'orange')
+  .pointAltitude(0.03)
+  .pointRadius(0.5)
+  .onPointClick(d => {
+    infoText.innerHTML = `<strong>${d.name}</strong><br>${d.text}`;
+  })
+  (document.getElementById('globeViz'));
+</script>
 </body>
 </html>
