@@ -51,17 +51,16 @@
 <div id="globeViz"></div>
 <div id="infoBox">
   <h2>Click a hotspot to see information</h2>
-  <p id="infoText">
+  <div id="infoText">
     The info for each location will appear here when you click on a hotspot.
-  </p>
+  </div>
 </div>
 
-<!-- Load Three.js and Globe.gl -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js"></script>
 <script src="https://unpkg.com/globe.gl"></script>
 
 <script>
-// Hotspots with text and flags
+// Hotspots with flag and description
 const hotspots = [
   { lat: -14.2, lng: -51.9, name: "Txai Suruí", text: "Defends the Amazon rainforest<br>Indigenous youth leader & COP26 speaker", flag: "https://flagcdn.com/w40/br.png" },
   { lat: 1.37, lng: 32.29, name: "Nyombi Morris", text: "Planted 47,500+ trees<br>Founder of Earth Volunteers", flag: "https://flagcdn.com/w40/ug.png" },
@@ -77,7 +76,6 @@ const hotspots = [
 
 const infoText = document.getElementById('infoText');
 
-// Create Globe
 const myGlobe = Globe()
   .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
   .pointsData(hotspots)
@@ -87,6 +85,7 @@ const myGlobe = Globe()
   .pointAltitude(0.03)
   .pointRadius(0.5)
   .onPointClick(d => {
+    // Update the info panel HTML correctly
     infoText.innerHTML = `
       <div class="leader-info">
         <img class="flag" src="${d.flag}" alt="flag">
@@ -98,11 +97,9 @@ const myGlobe = Globe()
     `;
   })
   .onPointHover(d => {
-    if(d) {
-      // highlight hovered hotspot
-      myGlobe.pointColor(point => point === d ? 'yellow' : 'orange');
+    if (d) {
+      myGlobe.pointColor(p => p === d ? 'yellow' : 'orange');
     } else {
-      // reset colors
       myGlobe.pointColor(() => 'orange');
     }
   })
