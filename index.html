@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Interactive Globe</title>
+<title>Youth Climate Leaders Globe</title>
 <style>
   body {
     margin: 0;
@@ -17,11 +17,33 @@
   #infoBox {
     flex: 1;
     padding: 20px;
-    background: #f5f5f5;
+    background: #f9f9f9;
     overflow-y: auto;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
   }
   #infoBox h2 {
     margin-top: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  .leader-info {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+  .leader-info img.flag {
+    width: 40px;
+    height: auto;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .leader-text {
+    line-height: 1.4;
+  }
+  .leader-text strong {
+    font-size: 16px;
+    display: block;
+    margin-bottom: 4px;
   }
 </style>
 </head>
@@ -29,33 +51,35 @@
 <div id="globeViz"></div>
 <div id="infoBox">
   <h2>Click a hotspot to see information</h2>
-  <p id="infoText">The info for each location will appear here when you click on a hotspot.</p>
+  <p id="infoText">
+    The info for each location will appear here when you click on a hotspot.
+  </p>
 </div>
 
 <!-- Load Three.js and Globe.gl -->
-<script src="https://unpkg.com/three@0.152.0/build/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js"></script>
 <script src="https://unpkg.com/globe.gl"></script>
 
 <script>
-// Hotspots
+// Hotspots with text and flags
 const hotspots = [
-  { lat: 50, lng: -85, name: "Ontario, Canada", text: "Home to the Great Lakes and vast forests." },
-  { lat: -19, lng: 30, name: "Zimbabwe", text: "Location of Victoria Falls and diverse wildlife." },
-  { lat: -13.8, lng: -172, name: "Samoa", text: "Beautiful Pacific island with rich traditions." },
-  { lat: 21, lng: 78, name: "India", text: "A land of languages, cultures, and varied climates." },
-  { lat: -8.4, lng: 115.1, name: "Bali", text: "Indonesian island known for beaches and temples." },
-  { lat: 52.3, lng: -1.5, name: "Britain", text: "A group of islands with long histories and stories." },
-  { lat: 34.05, lng: -118.25, name: "Los Angeles, California", text: "A global hub of film, art, and sunny weather." },
-  { lat: 31.24, lng: 36.51, name: "Jordan", text: "Home to Petra and dramatic desert landscapes." },
-  { lat: -14.2, lng: -51.9, name: "Brazil", text: "The largest country in South America." },
-  { lat: 1.37, lng: 32.29, name: "Uganda", text: "Known as the Pearl of Africa." }
+  { lat: -14.2, lng: -51.9, name: "Txai Suruí", text: "Defends the Amazon rainforest<br>Indigenous youth leader & COP26 speaker", flag: "https://flagcdn.com/w40/br.png" },
+  { lat: 1.37, lng: 32.29, name: "Nyombi Morris", text: "Planted 47,500+ trees<br>Founder of Earth Volunteers", flag: "https://flagcdn.com/w40/ug.png" },
+  { lat: 50, lng: -85, name: "Autumn Peltier", text: "Protects clean water for Indigenous communities<br>UN water-rights advocate", flag: "https://flagcdn.com/w40/ca.png" },
+  { lat: -19, lng: 30, name: "Nkosilathi Nyathi", text: "Youth climate activist since age 10<br>Represents youth at global forums", flag: "https://flagcdn.com/w40/zw.png" },
+  { lat: -13.8, lng: -172, name: "Brianna Fruean", text: "Pacific climate leader<br>Leads 350 Samoa & Future Rush", flag: "https://flagcdn.com/w40/ws.png" },
+  { lat: 21, lng: 78, name: "Licypriya Kangujam", text: "Young climate activist<br>Challenges world leaders on pollution & climate", flag: "https://flagcdn.com/w40/in.png" },
+  { lat: 1.37, lng: 32.29, name: "Vanessa Nakate", text: "Amplifies African youth voices<br>Founder of Rise Up Climate Movement", flag: "https://flagcdn.com/w40/ug.png" },
+  { lat: 34.05, lng: -118.25, name: "Xiuhtezcatl Martinez", text: "Indigenous activist & hip-hop artist<br>Mobilizes youth through Earth Guardians", flag: "https://flagcdn.com/w40/us.png" },
+  { lat: -8.4, lng: 115.1, name: "Melati Wijsen", text: "Fights plastic pollution in Bali<br>Co-founder of Bye Bye Plastic Bags", flag: "https://flagcdn.com/w40/id.png" },
+  { lat: -8.4, lng: 115.1, name: "Isabel Wijsen", text: "Youth climate leader<br>Co-founder of Bye Bye Plastic Bags", flag: "https://flagcdn.com/w40/id.png" }
 ];
 
 const infoText = document.getElementById('infoText');
 
 // Create Globe
 const myGlobe = Globe()
-  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg') // nice blue & green texture
+  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
   .pointsData(hotspots)
   .pointLat(d => d.lat)
   .pointLng(d => d.lng)
@@ -63,9 +87,33 @@ const myGlobe = Globe()
   .pointAltitude(0.03)
   .pointRadius(0.5)
   .onPointClick(d => {
-    infoText.innerHTML = `<strong>${d.name}</strong><br>${d.text}`;
+    infoText.innerHTML = `
+      <div class="leader-info">
+        <img class="flag" src="${d.flag}" alt="flag">
+        <div class="leader-text">
+          <strong>${d.name}</strong>
+          ${d.text}
+        </div>
+      </div>
+    `;
+  })
+  .onPointHover(d => {
+    if(d) {
+      // highlight hovered hotspot
+      myGlobe.pointColor(point => point === d ? 'yellow' : 'orange');
+    } else {
+      // reset colors
+      myGlobe.pointColor(() => 'orange');
+    }
   })
   (document.getElementById('globeViz'));
+
+// Slow automatic rotation
+function rotateGlobe() {
+  myGlobe.controls().rotateLeft(0.001);
+  requestAnimationFrame(rotateGlobe);
+}
+rotateGlobe();
 </script>
 </body>
 </html>
