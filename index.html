@@ -65,7 +65,7 @@ const globe = Globe()
   .pointLng(d => d.lng)
   .pointColor(()=>'orange')
   .pointAltitude(0.03)
-  .pointRadius(0.5)
+  .pointRadius(1.2) // <-- bigger points
   .pointLabel(d => d.name)
   .onPointClick(d => {
     infoText.innerHTML = `
@@ -81,7 +81,7 @@ let t = 0;
 function pulse() {
   t += 0.05;
   globe.pointsData(hotspots)
-       .pointAltitude(d => 0.03 + 0.01 * Math.sin(t*2 + hotspots.indexOf(d)));
+       .pointAltitude(d => 0.03 + 0.02 * Math.sin(t*2 + hotspots.indexOf(d))); // <-- stronger pulse
   requestAnimationFrame(pulse);
 }
 pulse();
