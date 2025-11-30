@@ -2,142 +2,82 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Youth Changemakers Globe with Icons</title>
+<title>Youth Climate Leaders Globe</title>
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f0f8ff;
-}
-.globe-container {
-  position: relative;
-  width: 600px;
-  height: 600px;
-  margin: 50px auto;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/The_Earth_seen_from_Apollo_17.jpg/600px-The_Earth_seen_from_Apollo_17.jpg');
-  background-size: cover;
-  background-position: center;
-  border-radius: 50%;
-}
-.hotspot {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background-color: #ff5722;
-  border-radius: 50%;
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-}
-.hotspot::before {
-  content: '';
-  position: absolute;
-  top: -10px; left: -10px;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-}
-.tooltip {
-  display: none;
-  position: absolute;
-  top: -90px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255,255,255,0.95);
-  color: #000;
-  padding: 8px 12px;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
-  font-size: 1.1em;
-  white-space: pre-wrap;
-  pointer-events: none;
-  z-index: 10;
-  max-width: 220px;
-  text-align: center;
-}
-.hotspot:hover .tooltip {
-  display: block;
-}
-.icon {
-  display: block;
-  font-size: 2em;
-  margin: 6px auto 0 auto;
-}
+  body { margin: 0; font-family: Arial, sans-serif; overflow: hidden; }
+
+  #globe { width: 100vw; height: 100vh; }
+
+  #info {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 360px;
+    max-height: 90vh;
+    background: rgba(245,245,245,0.95);
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    z-index: 10;
+  }
+
+  #info h2 { margin-top: 0; font-size: 18px; color: #003d73; }
+  .flag { width:50px; display:block; margin-bottom:10px; border:1px solid #ccc; }
+  .name { font-size: 18px; font-weight:bold; color:#003d73; margin-bottom:5px; }
+  .person-text { font-size: 14px; line-height:1.4; margin-top:10px; }
+  .country { font-weight: bold; color: #003d73; margin-bottom: 5px; }
 </style>
 </head>
 <body>
 
-<div class="globe-container">
+<div id="globe"></div>
 
-  <div class="hotspot" style="top: 35%; left: 40%;">
-    <div class="tooltip">
-      Txai Suruí 🇧🇷 Brazil – Defends Amazon rainforest; Indigenous youth leader & COP26 speaker
-      <div class="icon">🌍</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 50%; left: 45%;">
-    <div class="tooltip">
-      Nyombi Morris 🇺🇬 Uganda – Planted 47,500+ trees; Founder of Earth Volunteers
-      <div class="icon">🌱</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 20%; left: 30%;">
-    <div class="tooltip">
-      Autumn Peltier 🇨🇦 Canada – Protects clean water; UN water-rights advocate
-      <div class="icon">💧</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 55%; left: 50%;">
-    <div class="tooltip">
-      Nkosilathi Nyathi 🇿🇼 Zimbabwe – Youth climate activist; Represents youth at global forums
-      <div class="icon">🤲🌎</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 65%; left: 20%;">
-    <div class="tooltip">
-      Brianna Fruean 🇼🇸 Samoa – Pacific climate leader; Leads 350 Samoa & Future Rush
-      <div class="icon">🌏</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 40%; left: 35%;">
-    <div class="tooltip">
-      Licypriya Kangujam 🇮🇳 India – Young climate activist; Challenges world leaders
-      <div class="icon">🌡️</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 50%; left: 48%;">
-    <div class="tooltip">
-      Vanessa Nakate 🇺🇬 Uganda – Amplifies African youth voices; Founder of Rise Up Climate Movement
-      <div class="icon">❤️🌍</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 25%; left: 28%;">
-    <div class="tooltip">
-      Xiuhtezcatl Martinez 🇺🇸 USA – Indigenous activist & hip‑hop artist; Mobilizes youth through Earth Guardians
-      <div class="icon">🌳</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 60%; left: 25%;">
-    <div class="tooltip">
-      Melati Wijsen 🇮🇩 Indonesia – Fights plastic pollution; Co-founder of Bye Bye Plastic Bags
-      <div class="icon">♻️</div>
-    </div>
-  </div>
-
-  <div class="hotspot" style="top: 62%; left: 27%;">
-    <div class="tooltip">
-      Isabel Wijsen 🇮🇩 Indonesia – Youth climate leader; Co-founder of Bye Bye Plastic Bags
-      <div class="icon">💧</div>
-    </div>
-  </div>
-
+<div id="info">
+  <h2>Click a hotspot to see information</h2>
+  <div id="infoText">The info for each location will appear here when you click a hotspot.</div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r155/three.min.js"></script>
+<script src="https://unpkg.com/globe.gl"></script>
+
+<script>
+const hotspots = [
+  { lat:-14.2, lng:-51.9, name:"Txai Suruí", country:"Brazil", text:["Defends the Amazon rainforest","Indigenous youth leader & COP26 speaker"], flag:"https://flagcdn.com/w40/br.png" },
+  { lat:1.37, lng:32.29, name:"Nyombi Morris", country:"Uganda", text:["Planted 47,500+ trees","Founder of Earth Volunteers"], flag:"https://flagcdn.com/w40/ug.png" },
+  { lat:50, lng:-85, name:"Autumn Peltier", country:"Ontario, Canada", text:["Protects clean water for Indigenous communities","UN water-rights advocate"], flag:"https://flagcdn.com/w40/ca.png" },
+  { lat:-19, lng:30, name:"Nkosilathi Nyathi", country:"Zimbabwe", text:["Youth climate activist since age 10","Represents youth at global forums"], flag:"https://flagcdn.com/w40/zw.png" },
+  { lat:-13.8, lng:-172, name:"Brianna Fruean", country:"Samoa", text:["Pacific climate leader","Leads 350 Samoa & Future Rush"], flag:"https://flagcdn.com/w40/ws.png" },
+  { lat:25.5, lng:94.0, name:"Licypriya Kangujam", country:"Manipur, North East India", text:["Young climate activist","Challenges world leaders on pollution & climate"], flag:"https://flagcdn.com/w40/in.png" },
+  { lat:-8.4, lng:115.1, name:"Melati Wijsen", country:"Bali", text:["Fights plastic pollution in Bali","Co-founder of Bye Bye Plastic Bags"], flag:"https://flagcdn.com/w40/id.png" },
+  { lat:54, lng:-2, name:"Dominique Palmer", country:"UK", text:["Youth climate leader","Campaigns for climate justice"], flag:"https://flagcdn.com/w40/gb.png" },
+  { lat:34.05, lng:-118.25, name:"Isaias Hernandez", country:"Los Angeles, USA", text:["Environmental educator","Climate storyteller"], flag:"https://flagcdn.com/w40/us.png" },
+  { lat:31.95, lng:35.9, name:"Lina Al-Tarawneh", country:"Jordan", text:["Youth climate leader","Advocates for sustainable solutions"], flag:"https://flagcdn.com/w40/jo.png" }
+];
+
+const infoText = document.getElementById('infoText');
+
+const globe = Globe()
+  .globeImageUrl('//unpkg.com/three-globe/example/img/earth-day.jpg')
+  .pointsData(hotspots)
+  .pointLat(d => d.lat)
+  .pointLng(d => d.lng)
+  .pointColor(()=>'orange')
+  .pointAltitude(0.03)
+  .pointRadius(1.5)
+  .pointLabel(d => d.name)
+  .onPointClick(d => {
+    infoText.innerHTML = `
+      <img class="flag" src="${d.flag}">
+      <div class="name">${d.name}</div>
+      <div class="person-text">
+        <div class="country">${d.country}</div>
+        ${d.text.join('<br>')}
+      </div>
+    `;
+  })
+(document.getElementById('globe'));
+</script>
 
 </body>
 </html>
